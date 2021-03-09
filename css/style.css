@@ -1,0 +1,15 @@
+/* ----RESET---- */
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+/* ----/RESET---- */
+body{
+  font-family: 'Dosis', sans-serif;
+  color: #00bb2d;
+  background-color: #252525;
+}
+h1{
+  text-align: center;
+}
