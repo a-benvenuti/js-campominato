@@ -31,11 +31,19 @@ function isInArray(array, element) {
   }
   return false;
 }
+//restituisce "true" se un numero è dentro il  range
+function isInRange(min, max, number) {
+  var result = false;
+  if(number >= min && number <= max) {
+    result = true;
+  }
+  return result;
+}
 //  fine DELLE FUNZIONI
 
 
 var estremoMin = 1;
-var estremoMax = 100; // valore per il quale puo cambiare la difficoltà!
+var estremoMax = 20; // valore per il quale puo cambiare la difficoltà!
 
 // creo l'array contenente i numeri "bomba" CHE NON POSSONO RIPETERSI
 var arrayBombe = [];
@@ -49,3 +57,26 @@ for (var i = 0; arrayBombe.length < 16; i++) {
   }
 }
 console.log("I numeri bomba sono: " + arrayBombe);
+/*
+corpo del programma
+*/
+var arrayPunteggio = [];
+var numGiocateMax = (estremoMax - arrayBombe.length);
+var numeroGiocatore = false;
+var bombaPresa = false;
+for (var i = 0; i < numGiocateMax && bombaPresa == false; i++) {
+  while (isInRange(estremoMin, estremoMax, numeroGiocatore) == false) {
+    numeroGiocatore = parseInt(prompt("inserisci un numero da 1 a 100"));
+  }
+  if (isInArray(arrayPunteggio, numeroGiocatore) == false) {
+    arrayPunteggio.push(numeroGiocatore);
+  }
+  if (isInArray(arrayBombe, numeroGiocatore) == true){
+    console.log("hai perso! Il tuo punteggio è:" + (arrayPunteggio.length - 1));
+    bombaPresa = true;
+  }
+}
+
+if ((arrayPunteggio.length - 1) == numGiocateMax) {
+  console.log("Hai vinto! Hai raggiunto il punteggio massimo");
+}
