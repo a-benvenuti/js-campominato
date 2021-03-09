@@ -31,3 +31,21 @@ function isInArray(array, element) {
   }
   return false;
 }
+//  fine DELLE FUNZIONI
+
+
+var estremoMin = 1;
+var estremoMax = 100; // valore per il quale puo cambiare la difficoltà!
+
+// creo l'array contenente i numeri "bomba" CHE NON POSSONO RIPETERSI
+var arrayBombe = [];
+var numeroRandom = 0;
+var doppione = false;
+for (var i = 0; arrayBombe.length < 16; i++) {
+  numeroRandom = random(estremoMin, estremoMax)
+  doppione = isInArray(arrayBombe, numeroRandom)
+  if (doppione == false) {
+    arrayBombe.push(numeroRandom)
+  }
+}
+console.log("I numeri bomba sono: " + arrayBombe);
