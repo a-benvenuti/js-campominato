@@ -1,4 +1,4 @@
-// LE FUNZIONI
+//--------------------- LE FUNZIONI-----------------------------
 // genera numero random tra due estremi compresi
 function random(min, max){
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -14,10 +14,18 @@ function isInArray(array, element) {
   }
   return false;
 }
-//  fine DELLE FUNZIONI
+//--------------------fine DELLE FUNZIONI------------------------
+//-----------------VARIABILI-----------------
+var livello;
+var arrayBombe = [];
+var numeroRandom = 0;
+var doppione = false;
+var arrayGiocatore = [];
+var numeroBombe = 16;
+var numeroUtente;
+//------------fine DELLE VARIABILI-----------------
 
 // imposto livello di dificoltà
-var livello;
 while (livello != 0 && livello != 1 && livello != 2){
   var livello = parseInt(prompt("Scegli il livello di difficoltà tra 0 e 2"));
 }
@@ -28,12 +36,8 @@ if (livello == 0){
 } else if (livello == 2) {
   max = 50;
 }
-console.log("numero max: " , max);
 
 // creo l'array contenente i numeri "bomba" CHE NON POSSONO RIPETERSI
-var arrayBombe = [];
-var numeroRandom = 0;
-var doppione = false;
 for (var i = 0; arrayBombe.length < 16; i++) {
   numeroRandom = random(1, 100)
   doppione = isInArray(arrayBombe, numeroRandom)
@@ -44,24 +48,19 @@ for (var i = 0; arrayBombe.length < 16; i++) {
 console.log("I numeri bomba sono: " + arrayBombe);
 
 // CORPO DEL PROGRAMMA
-var numeroBombe = 16;
-var arrayGiocatore = [];
-var numeroUtente;
-
-
 while ( arrayGiocatore.length < (max - numeroBombe) && arrayBombe.includes(numeroUtente) == false ){
-  numeroUtente = parseInt(prompt("inserisci un numero"));
-  /*
-  validazione del numero inserito:
-  deve essere =  un numero | compreso tra 1 e 100 | non posso inserire sempre lo stesso valore
-  */
-  if (isNaN(numeroUtente))  {
-    alert("devi inserire solo numeri");
-  } else if (numeroUtente <= 0 || numeroUtente > 100 ){
-    alert("deve essere compreso da 1 e 100");
-  } else if ( arrayGiocatore.includes(numeroUtente) == false ){
-    arrayGiocatore.push(numeroUtente);
-  }
+    numeroUtente = parseInt(prompt("inserisci un numero"));
+    /*
+    validazione del numero inserito:
+    deve essere =  un numero | compreso tra 1 e 100 | non posso inserire sempre lo stesso valore
+    */
+    if (isNaN(numeroUtente))  {
+      alert("devi inserire solo numeri");
+    } else if (numeroUtente <= 0 || numeroUtente > 100 ){
+      alert("deve essere compreso da 1 e 100");
+    } else if ( arrayGiocatore.includes(numeroUtente) == false ){
+      arrayGiocatore.push(numeroUtente);
+    }
 }
 
 // ESITO DELLA PARTITA
