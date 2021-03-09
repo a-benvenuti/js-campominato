@@ -1,26 +1,9 @@
-/*
-Il computer deve generare 16 numeri casuali da 1 a 100.
-In seguito deve chiedere all’utente di inserire per 84 (100 -16) volte
-un numero da 1 a 100, se il numero è presente nella lista dei numeri generati,
-la partita termina, altrimenti continua chiedendo all’utente un altro numero.
-La partita termina quando il giocatore inserisce un numero “vietato”,
-ovvero presente nella lista di numeri random, o raggiunge il numero massimo
-possibile di tentativi consentiti. Al termine della partita il software deve
-comunicare il punteggio, cioè il numero di volte che l’utente ha inserito un
-numero consentito.
-I NUMERI SIA QUELLI "BOMBA" SIA QUELLI DIGITATI DALL'UTENTE NON POSSONO RIPETERSI
-*/
-/*
-BONUS impostare 3 livelli di dificolta riducendo gli estremi e lasciando invariato il numero di "bombe"
-*/
-
 // LE FUNZIONI
 // genera numero random tra due estremi compresi
 function random(min, max){
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
-
-//restituisce "true" se l'elemento è presente nell'array
+//restituisce "true" se l'elemento è presente nell'array (la invoco una volta poi uso includes)
 function isInArray(array, element) {
   var i = 0;
   while(i < array.length){
@@ -31,52 +14,59 @@ function isInArray(array, element) {
   }
   return false;
 }
-//restituisce "true" se un numero è dentro il  range
-function isInRange(min, max, number) {
-  var result = false;
-  if(number >= min && number <= max) {
-    result = true;
-  }
-  return result;
-}
 //  fine DELLE FUNZIONI
 
-
-var estremoMin = 1;
-var estremoMax = 20; // valore per il quale puo cambiare la difficoltà!
+// imposto livello di dificoltà
+var livello;
+while (livello != 0 && livello != 1 && livello != 2){
+  var livello = parseInt(prompt("Scegli il livello di difficoltà tra 0 e 2"));
+}
+if (livello == 0){
+  max = 100;
+} else if (livello == 1){
+  max = 80;
+} else if (livello == 2) {
+  max = 50;
+}
+console.log("numero max: " , max);
 
 // creo l'array contenente i numeri "bomba" CHE NON POSSONO RIPETERSI
 var arrayBombe = [];
 var numeroRandom = 0;
 var doppione = false;
 for (var i = 0; arrayBombe.length < 16; i++) {
-  numeroRandom = random(estremoMin, estremoMax)
+  numeroRandom = random(1, 100)
   doppione = isInArray(arrayBombe, numeroRandom)
   if (doppione == false) {
     arrayBombe.push(numeroRandom)
   }
 }
 console.log("I numeri bomba sono: " + arrayBombe);
-/*
-corpo del programma
-*/
-var arrayPunteggio = [];
-var numGiocateMax = (estremoMax - arrayBombe.length);
-var numeroGiocatore = false;
-var bombaPresa = false;
-for (var i = 0; i < numGiocateMax && bombaPresa == false; i++) {
-  while (isInRange(estremoMin, estremoMax, numeroGiocatore) == false) {
-    numeroGiocatore = parseInt(prompt("inserisci un numero da 1 a 100"));
-  }
-  if (isInArray(arrayPunteggio, numeroGiocatore) == false) {
-    arrayPunteggio.push(numeroGiocatore);
-  }
-  if (isInArray(arrayBombe, numeroGiocatore) == true){
-    console.log("hai perso! Il tuo punteggio è:" + (arrayPunteggio.length - 1));
-    bombaPresa = true;
+
+// CORPO DEL PROGRAMMA
+var numeroBombe = 16;
+var arrayGiocatore = [];
+var numeroUtente;
+
+
+while ( arrayGiocatore.length < (max - numeroBombe) && arrayBombe.includes(numeroUtente) == false ){
+  numeroUtente = parseInt(prompt("inserisci un numero"));
+  /*
+  validazione del numero inserito:
+  deve essere =  un numero | compreso tra 1 e 100 | non posso inserire sempre lo stesso valore
+  */
+  if (isNaN(numeroUtente))  {
+    alert("devi inserire solo numeri");
+  } else if (numeroUtente <= 0 || numeroUtente > 100 ){
+    alert("deve essere compreso da 1 e 100");
+  } else if ( arrayGiocatore.includes(numeroUtente) == false ){
+    arrayGiocatore.push(numeroUtente);
   }
 }
 
-if ((arrayPunteggio.length - 1) == numGiocateMax) {
-  console.log("Hai vinto! Hai raggiunto il punteggio massimo");
+// ESITO DELLA PARTITA
+if ( arrayGiocatore.length == (max - numeroBombe)){
+  alert ("CONGRATULAZIONI Hai Vinto!");
+} else{
+  alert("Hai perso il tuo punteggio è: " + (arrayGiocatore.length - 1) );
 }
