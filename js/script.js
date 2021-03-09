@@ -10,3 +10,24 @@ comunicare il punteggio, cioè il numero di volte che l’utente ha inserito un
 numero consentito.
 I NUMERI SIA QUELLI "BOMBA" SIA QUELLI DIGITATI DALL'UTENTE NON POSSONO RIPETERSI
 */
+/*
+BONUS impostare 3 livelli di dificolta riducendo gli estremi e lasciando invariato il numero di "bombe"
+*/
+
+// LE FUNZIONI
+// genera numero random tra due estremi compresi
+function random(min, max){
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+//restituisce "true" se l'elemento è presente nell'array
+function isInArray(array, element) {
+  var i = 0;
+  while(i < array.length){
+    if(array[i] == element){
+      return true;
+    }
+    i++;
+  }
+  return false;
+}
